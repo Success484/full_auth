@@ -169,6 +169,9 @@ REST_FRAMEWORK = {
 }
 
 
+redirect_urls = getenv('REDIRECT_URLS')
+
+
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL' : 'password-reset/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL' : True,
@@ -176,7 +179,8 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE' : True,
     'PASSWORD_RESET_CONFIRM_RETYPE' : True,
     'TOKEN_MODEL' : None,
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(',')
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': redirect_urls.split(',') if redirect_urls else [],
+
 }
 
 
