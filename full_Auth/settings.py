@@ -229,6 +229,13 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name',
 }
 
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "PUT",
+    "POST",
+    "HEAD",
+)
 
 
 # Default primary key field type
