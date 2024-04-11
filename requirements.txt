@@ -8,6 +8,7 @@ filelock==3.13.1
 idna==3.6
 kiwisolver==1.4.5
 numpy==1.26.4
+gunicorn==21.2.0
 packaging==24.0
 pillow==10.2.0
 platformdirs==4.1.0
