@@ -41,9 +41,7 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 DEBUG = getenv("DEBUG", "False") == "True"
 
 
-ALLOWED_HOSTS = getenv("DJANGO_ALLOWED_HOSTS",
-                        "127.0.0.1,localhost").split(",")
-
+ALLOWED_HOSTS = getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,full-auth-1.onrender.com").split(",")
 
 # Application definition
 
@@ -198,7 +196,7 @@ DOMAIN = getenv('DOMAIN')
 SITE_NAME = 'FULL AUTH'
 
 
-CORS_ALLOWED_ORIGINS = getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000,full-auth-1.onrender.com').split(',')
+CORS_ALLOWED_ORIGINS = getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
 CORS_ALLOW_CREDENTIALS = True
 
 
