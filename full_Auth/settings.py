@@ -97,20 +97,18 @@ WSGI_APPLICATION = 'full_Auth.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-if DEVELOPMENT_MODE == True:
+if DEVELOPMENT_MODE:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
+else:
     DATABASES = {
-        "default": dj_database_url.parse(getenv("DATABASE_URL")),
+        'default': dj_database_url.config(default='sqlite:///db.sqlite3')
     }
+
 
 
 # Password validation
