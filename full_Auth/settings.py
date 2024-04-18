@@ -23,7 +23,7 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'authentication-6sb5.onrender.com']
 
 
 
@@ -191,6 +191,11 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['emails']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name',
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'localhost:3000',
+    'authentication-6sb5.onrender.com'
+]
 
 CORS_ALLOW_METHODS = (
     "DELETE",
