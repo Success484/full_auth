@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from os import getenv, path
 from pathlib import Path
-import dotenv
+from dotenv import load_dotenv
 from django.core.management.utils import get_random_secret_key
 
 
@@ -19,6 +19,9 @@ from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv_file = Path(__file__).resolve().parent.parent / '.env.local'
+if dotenv_file.exists():
+    load_dotenv(dotenv_file)
 
 
 
@@ -95,12 +98,8 @@ WSGI_APPLICATION = 'full_Auth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'Odion12345$$',
-        'HOST': 'localhost', 
-        'PORT': '5432',       
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
