@@ -1,14 +1,14 @@
 from django.conf import settings
 from rest_framework.views import APIView
-from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import status
 from djoser.social.views import ProviderAuthView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView
 )
-# Create your views here.
+
 
 class CustomProviderAuthView(ProviderAuthView):
     def post(self, request, *args, **kwargs):
@@ -21,24 +21,24 @@ class CustomProviderAuthView(ProviderAuthView):
             response.set_cookie(
                 'access',
                 access_token,
-                max_age=settings.AUTH_COOKIE_ACCESS_MAX_AGE,
+                max_age=settings.AUTH_COOKIE_MAX_AGE,
                 path=settings.AUTH_COOKIE_PATH,
                 secure=settings.AUTH_COOKIE_SECURE,
                 httponly=settings.AUTH_COOKIE_HTTP_ONLY,
                 samesite=settings.AUTH_COOKIE_SAMESITE
             )
-
-
             response.set_cookie(
                 'refresh',
                 refresh_token,
-                max_age=settings.AUTH_COOKIE_REFRESH_MAX_AGE,
+                max_age=settings.AUTH_COOKIE_MAX_AGE,
                 path=settings.AUTH_COOKIE_PATH,
                 secure=settings.AUTH_COOKIE_SECURE,
                 httponly=settings.AUTH_COOKIE_HTTP_ONLY,
                 samesite=settings.AUTH_COOKIE_SAMESITE
             )
+
         return response
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
@@ -51,23 +51,22 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             response.set_cookie(
                 'access',
                 access_token,
-                max_age=settings.AUTH_COOKIE_ACCESS_MAX_AGE,
+                max_age=settings.AUTH_COOKIE_MAX_AGE,
                 path=settings.AUTH_COOKIE_PATH,
                 secure=settings.AUTH_COOKIE_SECURE,
                 httponly=settings.AUTH_COOKIE_HTTP_ONLY,
                 samesite=settings.AUTH_COOKIE_SAMESITE
             )
-
-
             response.set_cookie(
                 'refresh',
                 refresh_token,
-                max_age=settings.AUTH_COOKIE_REFRESH_MAX_AGE,
+                max_age=settings.AUTH_COOKIE_MAX_AGE,
                 path=settings.AUTH_COOKIE_PATH,
                 secure=settings.AUTH_COOKIE_SECURE,
                 httponly=settings.AUTH_COOKIE_HTTP_ONLY,
                 samesite=settings.AUTH_COOKIE_SAMESITE
             )
+
         return response
 
 
@@ -86,7 +85,7 @@ class CustomTokenRefreshView(TokenRefreshView):
             response.set_cookie(
                 'access',
                 access_token,
-                max_age=settings.AUTH_COOKIE_ACCESS_MAX_AGE,
+                max_age=settings.AUTH_COOKIE_MAX_AGE,
                 path=settings.AUTH_COOKIE_PATH,
                 secure=settings.AUTH_COOKIE_SECURE,
                 httponly=settings.AUTH_COOKIE_HTTP_ONLY,
@@ -104,7 +103,6 @@ class CustomTokenVerifyView(TokenVerifyView):
             request.data['token'] = access_token
 
         return super().post(request, *args, **kwargs)
-    
 
 
 class LogoutView(APIView):
