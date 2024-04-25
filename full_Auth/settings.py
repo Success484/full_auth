@@ -36,10 +36,12 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,full-auth-b0gw.onrender.com").split(",")
+ALLOWED_HOSTS = getenv("DJANGO_ALLOWED_HOSTS",
+                       "127.0.0.1,localhost,full-auth-b0gw.onrender.com").split(",")
+
 
 # Application definition
 
@@ -183,7 +185,7 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE' : True,
     'PASSWORD_RESET_CONFIRM_RETYPE' : True,
     'TOKEN_MODEL' : None,
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS')
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(',')
 }
 
 
@@ -203,7 +205,6 @@ SITE_NAME = 'FULL AUTH'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'https://full-auth-1.onrender.com'
 ]
 CORS_ALLOW_CREDENTIALS = True
 
