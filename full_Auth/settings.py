@@ -113,7 +113,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'PQbivoyewZTlsJOXtnqXJnlECZcEiINj',
         'HOST': 'roundhouse.proxy.rlwy.net',  # or the hostname provided by Render.com
-        'PORT': '23384',       # the default PostgreSQL port
+        'PORT': '23384',      # the default PostgreSQL port
     }
 }
 
@@ -175,7 +175,7 @@ REST_FRAMEWORK = {
 }
 
 
-redirect_urls = getenv('REDIRECT_URLS')
+# redirect_urls = getenv('REDIRECT_URLS')
 
 
 DJOSER = {
@@ -185,7 +185,7 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE' : True,
     'PASSWORD_RESET_CONFIRM_RETYPE' : True,
     'TOKEN_MODEL' : None,
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': redirect_urls.split(',') if redirect_urls else [],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS', 'https://full-auth-b0gw.onrender.com/auth/google').split(',')
 }
 
 
@@ -220,8 +220,8 @@ AUTH_COOKIE_SAMESITE = 'None'
 
 # Social OAuth
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv('GOOGLE_AUTH_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv('GOOGLE_AUTH_SECRET_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '279513314160-fhd28nql71tkdkk5sutcluv0em3hi9ve.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',  # Corrected scope
     'https://www.googleapis.com/auth/userinfo.profile',
