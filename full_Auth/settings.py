@@ -9,27 +9,25 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import sys
+import dj_database_url
 from os import getenv, path
 from pathlib import Path
-from dotenv import load_dotenv
 from django.core.management.utils import get_random_secret_key
-
-
+import dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-dotenv_file = Path(__file__).resolve().parent.parent / '.env.local'
-if dotenv_file.exists():
-    load_dotenv(dotenv_file)
+dotenv_file = BASE_DIR / '.env.local'
+
+if path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 
 
-DEVELOPMENT_MODE = True
+DEVELOPMENT_MODE = getenv('DEVELOPMENT_MODE', 'False') == 'True'
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
@@ -94,16 +92,6 @@ WSGI_APPLICATION = 'full_Auth.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 DATABASES = {
@@ -175,7 +163,7 @@ REST_FRAMEWORK = {
 }
 
 
-# redirect_urls = getenv('REDIRECT_URLS')
+redirect_urls = getenv('REDIRECT_URLS')
 
 
 DJOSER = {
@@ -185,7 +173,7 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE' : True,
     'PASSWORD_RESET_CONFIRM_RETYPE' : True,
     'TOKEN_MODEL' : None,
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS', 'https://full-auth-b0gw.onrender.com/auth/google').split(',')
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': redirect_urls.split(',') if redirect_urls else [],
 }
 
 
@@ -220,8 +208,8 @@ AUTH_COOKIE_SAMESITE = 'None'
 
 # Social OAuth
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '279513314160-fhd28nql71tkdkk5sutcluv0em3hi9ve.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv('GOOGLE_AUTH_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv('GOOGLE_AUTH_SECRET_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',  # Corrected scope
     'https://www.googleapis.com/auth/userinfo.profile',
